@@ -28,7 +28,7 @@ to :
 
 Then add 
 ```
-$('.whateveryouwant').editable(options);
+$('.whateveryouwant').editable();
 ```
 
 ### Options
