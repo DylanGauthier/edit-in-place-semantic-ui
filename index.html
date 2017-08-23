@@ -119,35 +119,36 @@
                 </form>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
-        <script src="./dist/sui-eip.min.js"></script>
-        <script>
-			// Callback function
-            const doAjax = (ev) => {
-                $('.popup')
-                    .popup({
-                        html: `
-                            <div class="popup-content">
-                                <i class="checkmark icon"></i>
-                                <span>Saved!</span>
-                            </div>`
-                    })
-                    .popup('show');
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
+	<script src="./dist/sui-eip.min.js"></script>
+	<script>
+		// Callback function
+		const doAjax = (ev) => {
+			$('.popup')
+				.popup({
+					html: `
+						<div class="popup-content">
+							<i class="checkmark icon"></i>
+							<span>Saved!</span>
+						</div>`
+				})
+				.popup('show');
 
-                setTimeout(() => {
-                    $('.popup')
-                        .popup('hide')
-                        .popup('destroy');
-                }, 1000);
-            }
+			setTimeout(() => {
+				$('.popup')
+					.popup('hide')
+					.popup('destroy');
+			}, 1000);
+		}
 
-			// Attach the editable function
-            $('.editable').editable({
-                onChange: doAjax
-            });
-        </script>
+		// Attach the editable function
+		$('.editable').editable({
+			onChange: doAjax
+		});
+	</script>
 </body>
 
 </html>
