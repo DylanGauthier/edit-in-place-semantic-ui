@@ -4,6 +4,8 @@ Needed this for another project and thought it'd be cool to share it.
 
 There are things to fix, and things to implement :).
 
+[Demo](https://dylangauthier.github.io/edit-in-place-semantic-ui/)
+
 ## Getting Started
 
 ### Prerequisites
@@ -35,7 +37,7 @@ $('.whateveryouwant').editable();
 
 ```
 $('.whateveryouwant').editable({
-	onChange:(ev) => console.log(ev)
+    onChange:(ev) => console.log(ev)
 });
 ```
 
