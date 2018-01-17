@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 
 $.fn.editable = function (options) {
-
     const STYLE_EDITABLE = {
         "cursor": "pointer",
         "text-decoration": "underline",
@@ -17,56 +16,66 @@ $.fn.editable = function (options) {
         });
     }
 
+    function isNewValueValid(newValue, oldValue) {
+        return (newValue.trim() !== '' && oldValue !== newValue);
+    }
+
     function setEditableElementValue(editableElement, parent, event) {
-        const value = event.target.value;
-        const textContent = editableElement.textContent; // get old editable element value
-        let triggerCallbackEvent = false;
+        const newValue = event.target.value;
+        const oldValue = editableElement.textContent;
 
-        if (value.trim() !== '' && textContent !== value) {
-            editableElement.textContent = value;
-            triggerCallbackEvent = true;
+        if(!isNewValueValid(newValue, oldValue)){
+            return;
         }
 
-        // if a new value has been set, we trigger the user's callback.
-        if (triggerCallbackEvent) {
-            setTimeout(function(){
-                options.onChange({
-                    parent: parent,
-                    editableElement: editableElement,
-                    event: event,
-                    oldValue: textContent,
-                    newValue: value
-                });
-            }, 100);
-        }
+        // if the new value is valid, we set it and trigger the user's callback.
+        editableElement.textContent = newValue;
+
+        setTimeout(function(){
+            options.onChange({
+                parent,
+                editableElement,
+                event,
+                oldValue,
+                newValue
+            });
+        }, 100);
+    }
+
+    function setParent(parent, content, width) {
+        parent.classList   = '';
+        parent.style.width = width;
+        parent.innerHTML   = content;
+        parent.style.height ='4px';
+    }
+
+    function setInput(input) {
+        input.focus();
+        input.select();
     }
 
     function toInput(editableElement) {
-        // We add one 'ghost' hidden input because of the ability of the browsers
-        // to submit on ENTER keyup if only one input is in the form.
-        // This way the trigger wont occur since there are two inputs.
+        const parent          = editableElement.parentElement;
+        const type            = (editableElement.hasAttribute('type')) ? editableElement.getAttribute('type') : 'text';
+        const parentClassList = [...parent.classList];
+
+        // Since we can't submit a form on "enter" whenever there is only one input in the form, a ghost one has been added.
         const wrapper = `
             <input type="text" style="display:none"/>
-            <div class="form-group bs-input has-editable" style="margin: 0px;">
-                <input type="text" class="form-control bs-editable" value="${editableElement.textContent}"/>
+            <div class="form-group" style="margin: 0px;">
+                <input type="${type}" class="form-control eip-editable input-sm" value="${editableElement.textContent}"/>
             </div>
         `;
 
-        const parent = editableElement.parentElement;
-        // We get rid of the parent's classes so it's not stylized. This way the input should "fit" content...
-        const parentClassList = [...parent.classList];
-        parent.classList = "";
-        parent.innerHTML = wrapper;
+        setParent(parent, wrapper, `${parent.clientWidth}px`);
+        const input = parent.querySelector('.eip-editable');
+        setInput(input);
 
-        const input = parent.querySelector('.bs-input .bs-editable');
-        input.focus();
-        input.select();
-
-        // setTimeout so we don't block the UI. Check following link for further infos:
+        // setTimeout so we don't block the UI. Check the following link for further infos:
         // https://stackoverflow.com/questions/42266929/click-after-blur-doesnt-work
-        input.addEventListener('blur', (ev) => {
+        input.addEventListener('blur', (event) => {
             setTimeout(() => {
-                setEditableElementValue(editableElement, parent, ev);
+                setEditableElementValue(editableElement, parent, event);
                 toEditableElement(parent, editableElement, parentClassList);
             }, 100);
         });

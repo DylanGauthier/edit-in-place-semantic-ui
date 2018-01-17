@@ -16,12 +16,12 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files:['src/bs-eip.js']
+            files:['src/eip.js']
         },
         browserify: {
             dist:{
                 files: {
-                    'dist/bs-eip.js': 'src/bs-eip.js'
+                    'dist/eip.js': 'src/eip.js'
                 },
                 options: {
                     transform: [['babelify', { presets: "es2015" }]],
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         uglify: {
             build:{
                 files:{
-                    'dist/bs-eip.min.js':'dist/bs-eip.js'
+                    'dist/eip.min.js':'dist/eip.js'
                 }
             }
         }
