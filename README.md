@@ -1,21 +1,19 @@
-# edit-in-place-semantic-ui
-Super basic edit-in-place plugin for Semantic UI.
+# Edit In Place jQuery plugin for Bootstrap
+Super basic edit-in-place jquery plugin for Bootstrap.
 Needed this for another project and thought it'd be cool to share it.
 
-There are things to fix, and things to implement :).
-
-[Demo](https://dylangauthier.github.io/edit-in-place-semantic-ui/)
+[Demo](https://dylangauthier.github.io/jquery-bootstrap-edit-in-place/)
 
 ## Getting Started
 
 ### Prerequisites
 
- 1. Semantic UI
+ 1. Bootstrap 3.3
  2. jQuery
 
 ### Usage
 
-Grab and import ` dist/sui-eip.min.js` to your project.
+Grab and import ` dist/eip.min.js` to your project.
 
 Then change
 ```
@@ -35,15 +33,9 @@ $('.whateveryouwant').editable();
 
 ### Options
 
-```
-$('.whateveryouwant').editable({
-    onChange:(ev) => console.log(ev)
-});
-```
+ - `onChange` : Callback `function()` when the input's value has been changed.
 
- - **onChange** : Callback function when the input's value has been changed.
-
-### TODO 
- - Do not allow editable elements like `body`, `table` and such.
+### TODO  - Do not allow editable elements like `body`, `table` and such.
  - Refactor code, pretty sure we can improve a lot.
- - Find limitations and fix them :).
+ - Add support for others css frameworks or native.
+ - Find limitations and fix them.
